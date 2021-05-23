@@ -1,8 +1,11 @@
-var express = require('express');
-var app = express();
-var db = require('./db');
-var user = require('./controllers/usercontroller');
-var game = require('./controllers/gamecontroller')
+const express = require('express');
+const app = express();
+const {DataTypes } = require('sequelize');
+const db = require('./db');
+const user = require('./controllers/usercontroller');
+const game = require('./controllers/gamecontroller');
+const User = require('./models/user')(db, DataTypes);
+const Game = require('./models/game')(db, DataTypes);
 
 
 db.sync();
@@ -13,3 +16,5 @@ app.use('/api/game', game);
 app.listen(function() {
     console.log("App is listening on 4000");
 })
+User.sync();
+Game.sync();
